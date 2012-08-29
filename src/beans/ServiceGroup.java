@@ -8,26 +8,26 @@ public class ServiceGroup {
 	private String serviceGroupName;
 	private String protocol;
 	
-	private long cpuUsageThreshold;
-	private long cpuUsageFatal;
+	private int cpuUsageThreshold;
+	private int cpuUsageFatal;
 	
-	private long memUsageThreshold;
-	private long memUsageFatal;
+	private int memUsageThreshold;
+	private int memUsageFatal;
 	
-	private long heartbeat;
-	private long heartbeatFrequency;
-	private long maxHeartbeatFail;
+	private int heartbeat;
+	private int heartbeatFrequency;
+	private int maxHeartbeatFail;
 	
-	private long maxRequestsAllowedInBuffer;
+	private int maxRequestsAllowedInBuffer;
 	
 	// Repeat Timer
-	private long repeat;
+	private int repeat;
 	
 	private boolean restart;
 	
 	private List<HostLocation> hostLocations;
 	private List<ActionStep> actionSteps;
-	private List<Contacts> contact;
+	private List<Contact> contact;
 	public int getServiceId() {
 		return serviceId;
 	}
@@ -46,58 +46,58 @@ public class ServiceGroup {
 	public void setProtocol(String protocol) {
 		this.protocol = protocol;
 	}
-	public long getCpuUsageThreshold() {
+	public int getCpuUsageThreshold() {
 		return cpuUsageThreshold;
 	}
-	public void setCpuUsageThreshold(long cpuUsageThreshold) {
+	public void setCpuUsageThreshold(int cpuUsageThreshold) {
 		this.cpuUsageThreshold = cpuUsageThreshold;
 	}
-	public long getCpuUsageFatal() {
+	public int getCpuUsageFatal() {
 		return cpuUsageFatal;
 	}
-	public void setCpuUsageFatal(long cpuUsageFatal) {
+	public void setCpuUsageFatal(int cpuUsageFatal) {
 		this.cpuUsageFatal = cpuUsageFatal;
 	}
-	public long getMemUsageThreshold() {
+	public int getMemUsageThreshold() {
 		return memUsageThreshold;
 	}
-	public void setMemUsageThreshold(long memUsageThreshold) {
+	public void setMemUsageThreshold(int memUsageThreshold) {
 		this.memUsageThreshold = memUsageThreshold;
 	}
-	public long getMemUsageFatal() {
+	public int getMemUsageFatal() {
 		return memUsageFatal;
 	}
-	public void setMemUsageFatal(long memUsageFatal) {
+	public void setMemUsageFatal(int memUsageFatal) {
 		this.memUsageFatal = memUsageFatal;
 	}
-	public long getHeartbeat() {
+	public int getHeartbeat() {
 		return heartbeat;
 	}
-	public void setHeartbeat(long heartbeat) {
+	public void setHeartbeat(int heartbeat) {
 		this.heartbeat = heartbeat;
 	}
-	public long getHeartbeatFrequency() {
+	public int getHeartbeatFrequency() {
 		return heartbeatFrequency;
 	}
-	public void setHeartbeatFrequency(long heartbeatFrequency) {
+	public void setHeartbeatFrequency(int heartbeatFrequency) {
 		this.heartbeatFrequency = heartbeatFrequency;
 	}
-	public long getMaxHeartbeatFail() {
+	public int getMaxHeartbeatFail() {
 		return maxHeartbeatFail;
 	}
-	public void setMaxHeartbeatFail(long maxHeartbeatFail) {
+	public void setMaxHeartbeatFail(int maxHeartbeatFail) {
 		this.maxHeartbeatFail = maxHeartbeatFail;
 	}
-	public long getMaxRequestsAllowedInBuffer() {
+	public int getMaxRequestsAllowedInBuffer() {
 		return maxRequestsAllowedInBuffer;
 	}
-	public void setMaxRequestsAllowedInBuffer(long maxRequestsAllowedInBuffer) {
+	public void setMaxRequestsAllowedInBuffer(int maxRequestsAllowedInBuffer) {
 		this.maxRequestsAllowedInBuffer = maxRequestsAllowedInBuffer;
 	}
-	public long getRepeat() {
+	public int getRepeat() {
 		return repeat;
 	}
-	public void setRepeat(long repeat) {
+	public void setRepeat(int repeat) {
 		this.repeat = repeat;
 	}
 	public boolean isRestart() {
@@ -118,10 +118,11 @@ public class ServiceGroup {
 	public void setActionSteps(List<ActionStep> actionSteps) {
 		this.actionSteps = actionSteps;
 	}
-	public List<Contacts> getContact() {
+	public List<Contact> getContact() {
 		return contact;
 	}
-	public void setContact(List<Contacts> contact) {
+	public void setContact(List<Contact> contact) {
 		this.contact = contact;
 	}
+	
 }
