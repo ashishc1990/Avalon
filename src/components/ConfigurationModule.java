@@ -14,6 +14,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import beans.ActionStep;
 import beans.Contact;
 import beans.HostLocation;
 import beans.ServiceGroup;
@@ -34,10 +35,8 @@ public class ConfigurationModule {
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -92,9 +91,10 @@ public class ConfigurationModule {
 		
 		s.setContact(getListOfContacts(e));
 		s.setHostLocations(getListOfHostLocations(e));
+		s.setActionSteps(getListOfActionSteps(e));
 		return s;
 	}
-	
+
 	/**
 	 * I take a xml element and the tag name, look for the tag and get
 	 * the text content
@@ -111,6 +111,30 @@ public class ConfigurationModule {
 
 		return textVal;
 	}
+	
+	private static List<ActionStep> getListOfActionSteps(Element ele) {
+
+		List<ActionStep> listOfActionSteps = new ArrayList<ActionStep>();
+		NodeList nl = ele.getElementsByTagName("ActionStep");
+		
+		if (nl!=null && nl.getLength() > 0){
+			for (int i = 0 ;i<nl.getLength(); i++){
+				
+				// Get the ServiceGroup Element
+				Element e = (Element) nl.item(i);
+				
+				// Get the ServiceGroup Object
+				ActionStep as = getActionStep(e);
+				
+				// add to List 
+				listOfActionSteps.add(as);
+			}
+		}
+		
+		return listOfActionSteps;
+
+	}
+
 
 	private static List<HostLocation> getListOfHostLocations(Element ele){
 		List<HostLocation> listOfHostLocations = new ArrayList<HostLocation>();
@@ -133,6 +157,7 @@ public class ConfigurationModule {
 		return listOfHostLocations;
 	}
 	
+
 	private static List<Contact> getListOfContacts (Element ele){
 		List<Contact> listOfContacts = new ArrayList<Contact>();
 		
@@ -155,14 +180,34 @@ public class ConfigurationModule {
 		return listOfContacts;
 	}
 
+	private static ActionStep getActionStep(Element e) {
+		ActionStep as = new ActionStep();
+		
+		as.setAction(getTextValue(e, "Action"));
+		as.setLogging(getTextValue(e, "Logging"));
+		as.setSendEmail(getTextValue(e, "SendEmail"));
+		as.setServiceStatus(getTextValue(e, "ServiceStatus"));
+		
+		return as;
+	}
 	private static Contact getContact(Element e) {
-		// TODO Auto-generated method stub
-		return null;
+		Contact c = new Contact();
+		
+		c.setEmail(getTextValue(e, "Email"));
+		c.setAlias(getTextValue(e, "Alias"));
+		c.setName(getTextValue(e, "Name"));
+		
+		return c;
 	}
 
 	private static HostLocation getHostLocation(Element e) {
-		// TODO Auto-generated method stub
-		return null;
+		HostLocation hl = new HostLocation();
+		
+		hl.setHostName(getTextValue(e, "HostName"));
+		hl.setIpAddress(getTextValue(e, "IpAddress"));
+		hl.setPortNumber(getTextValue(e, "PortNumber"));
+		
+		return hl;
 	}
 
 	/**

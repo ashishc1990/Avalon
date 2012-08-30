@@ -5,7 +5,8 @@ public class ActionStep {
 	private String serviceStatus;
 	private String action;
 	private String logging;
-	private boolean sendEmail;
+	private String sendEmail;
+	
 	public String getServiceStatus() {
 		return serviceStatus;
 	}
@@ -24,10 +25,10 @@ public class ActionStep {
 	public void setLogging(String logging) {
 		this.logging = logging;
 	}
-	public boolean isSendEmail() {
+	public String getSendEmail() {
 		return sendEmail;
 	}
-	public void setSendEmail(boolean sendEmail) {
+	public void setSendEmail(String sendEmail) {
 		this.sendEmail = sendEmail;
 	}
 	

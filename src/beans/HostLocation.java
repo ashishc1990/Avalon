@@ -4,7 +4,7 @@ public class HostLocation {
 
 	private String hostName;
 	private String ipAddress;
-	private long portNumber;
+	private String portNumber;
 	
 	public String getHostName() {
 		return hostName;
@@ -18,10 +18,10 @@ public class HostLocation {
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
 	}
-	public long getPortNumber() {
+	public String getPortNumber() {
 		return portNumber;
 	}
-	public void setPortNumber(long portNumber) {
+	public void setPortNumber(String portNumber) {
 		this.portNumber = portNumber;
 	}
 }
