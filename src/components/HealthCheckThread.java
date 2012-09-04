@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
 
-import modules.Logging;
+import modules.LoggingModule;
 
 import org.hyperic.sigar.Sigar;
 import org.hyperic.sigar.SigarException;
@@ -37,32 +37,36 @@ public class HealthCheckThread implements Runnable {
 				try {
 					if (systemInfo.getProcMem(s.getProcessId()).getSize() > s.getMemUsageThreshold()){
 						// Log entry as WARNING and NOTICE
-						Logging.log(Logging.WARNING, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+						LoggingModule.log(LoggingModule.WARNING, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
 								+" crossed Threshold Memory usage" );
-						Logging.log(Logging.NOTICE, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+						LoggingModule.log(LoggingModule.NOTICE, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
 								+" crossed Threshold Memory usage" );
+						// TODO Send email to contact personnel
 					}
 					if (systemInfo.getProcMem(s.getProcessId()).getSize() > s.getMemUsageFatal()){
 						// Log entry as CRITICAL and EMERGENCY
-						Logging.log(Logging.CRITICAL, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+						LoggingModule.log(LoggingModule.CRITICAL, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
 								+" crossed Fatal Memory usage" );
-						Logging.log(Logging.EMERGENCY, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+						LoggingModule.log(LoggingModule.EMERGENCY, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
 								+" crossed Fatal Memory usage" );
+						// TODO Restart service, and send email to contact personnel
 					}
 					
 					if (systemInfo.getProcCpu(s.getProcessId()).getPercent() > s.getCpuUsageThreshold()){
 						// Log entry as WARNING and NOTICE
-						Logging.log(Logging.WARNING, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+						LoggingModule.log(LoggingModule.WARNING, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
 								+" crossed Threshold CPU usage" );
-						Logging.log(Logging.NOTICE, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+						LoggingModule.log(LoggingModule.NOTICE, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
 								+" crossed Threshold CPU usage" );
+						// TODO Send email to contact personnel
 					}
 					if (systemInfo.getProcCpu(s.getProcessId()).getPercent() > s.getCpuUsageFatal()){
 						// Log entry as CRITICAL and EMERGENCY
-						Logging.log(Logging.CRITICAL, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+						LoggingModule.log(LoggingModule.CRITICAL, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
 								+" crossed Fatal CPU usage" );
-						Logging.log(Logging.EMERGENCY, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+						LoggingModule.log(LoggingModule.EMERGENCY, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
 								+" crossed Fatal CPU usage" );
+						// TODO Restart Service, and send email to contact personnel 
 					}
 				} catch (SigarException e) {
 					System.out.println("The error is" + e.getMessage());

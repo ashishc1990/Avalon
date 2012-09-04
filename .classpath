@@ -5,5 +5,7 @@
 	<classpathentry kind="lib" path="libraries/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="libraries/jaxen-1.1.4.jar"/>
 	<classpathentry kind="lib" path="libraries/sigar.jar"/>
+	<classpathentry kind="lib" path="libraries/mail.jar"/>
+	<classpathentry kind="lib" path="libraries/activation.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

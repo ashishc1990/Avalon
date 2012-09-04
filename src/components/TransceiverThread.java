@@ -6,7 +6,7 @@ import java.util.Queue;
 
 import beans.ServerRequest;
 import beans.ServerResponse;
-import modules.Transceiver;
+import modules.TransceiverModule;
 
 public class TransceiverThread implements Runnable {
 
@@ -28,7 +28,7 @@ public class TransceiverThread implements Runnable {
 	public void run() {
 		ServerRequest serviceRequest = null;
 		ServerResponse serviceResponse ;
-		Transceiver t = new Transceiver(); 
+		TransceiverModule t = new TransceiverModule(); 
 		
 		while (!requestQueue.isEmpty()){
 			serviceRequest = requestQueue.remove();

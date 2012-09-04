@@ -3,7 +3,7 @@ package components;
 import java.util.ArrayList;
 import java.util.List;
 
-import modules.ConfigurationManager;
+import modules.ConfigurationManagerModule;
 import beans.ServiceGroup;
 
 
@@ -20,7 +20,7 @@ public class ConfigurationManagerThread implements Runnable {
 	public void run() {
 		
 		System.out.println("In Configuration Manager thread");
-		List<ServiceGroup> ListOfServiceGroups = ConfigurationManager.ReadFromConfigurationFile("services.cfg");
+		List<ServiceGroup> ListOfServiceGroups = ConfigurationManagerModule.ReadFromConfigurationFile("services.cfg");
 		List<ServiceGroup> NewListOfServiceGroups = new ArrayList<ServiceGroup>();
 		
 		// TODO Spawn new health monitoring thread for each ServiceGroup
@@ -31,7 +31,7 @@ public class ConfigurationManagerThread implements Runnable {
 		try{
 			while (true){
 				Thread.sleep(10000);
-				NewListOfServiceGroups = ConfigurationManager.ReadFromConfigurationFile("services.cfg");
+				NewListOfServiceGroups = ConfigurationManagerModule.ReadFromConfigurationFile("services.cfg");
 				
 				if (NewListOfServiceGroups.size() != ListOfServiceGroups.size()){
 					// TODO If there are new Service Groups added to the configuration files
