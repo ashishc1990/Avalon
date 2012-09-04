@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
 
+import modules.ContactModule;
 import modules.LoggingModule;
 
 import org.hyperic.sigar.Sigar;
 import org.hyperic.sigar.SigarException;
 
 import beans.ActionStep;
+import beans.Contact;
 import beans.HostLocation;
 import beans.ServerRequest;
 import beans.ServerResponse;
@@ -41,7 +43,11 @@ public class HealthCheckThread implements Runnable {
 								+" crossed Threshold Memory usage" );
 						LoggingModule.log(LoggingModule.NOTICE, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
 								+" crossed Threshold Memory usage" );
-						// TODO Send email to contact personnel
+						// Send email to contact personnel
+						for (Contact c: s.getContact()){
+							ContactModule.sendEmail(c.getEmail(), "info@avalon", "WARNING:LOG UPDATE", "Service Group ID " + s.getServiceId() + 
+									" has exceeded Threshold memory usage.");
+						}
 					}
 					if (systemInfo.getProcMem(s.getProcessId()).getSize() > s.getMemUsageFatal()){
 						// Log entry as CRITICAL and EMERGENCY
@@ -49,7 +55,11 @@ public class HealthCheckThread implements Runnable {
 								+" crossed Fatal Memory usage" );
 						LoggingModule.log(LoggingModule.EMERGENCY, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
 								+" crossed Fatal Memory usage" );
-						// TODO Restart service, and send email to contact personnel
+						// Restart service, and send email to contact personnel
+						for (Contact c : s.getContact()){
+							ContactModule.sendEmail(c.getEmail(), "info@avalon", "EMERGENCY:LOG UPDATE", "Service Group ID " + s.getServiceId() +
+									" has exceeded Fatal Memory Usage." );
+						}
 					}
 					
 					if (systemInfo.getProcCpu(s.getProcessId()).getPercent() > s.getCpuUsageThreshold()){
@@ -58,7 +68,11 @@ public class HealthCheckThread implements Runnable {
 								+" crossed Threshold CPU usage" );
 						LoggingModule.log(LoggingModule.NOTICE, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
 								+" crossed Threshold CPU usage" );
-						// TODO Send email to contact personnel
+						// Send email to contact personnel
+						for (Contact c: s.getContact()){
+							ContactModule.sendEmail(c.getEmail(), "info@avalon", "WARNING:LOG UPDATE", "Service Group ID " + s.getServiceId() + 
+									" has exceeded Threshold CPU usage.");
+						}
 					}
 					if (systemInfo.getProcCpu(s.getProcessId()).getPercent() > s.getCpuUsageFatal()){
 						// Log entry as CRITICAL and EMERGENCY
@@ -66,7 +80,11 @@ public class HealthCheckThread implements Runnable {
 								+" crossed Fatal CPU usage" );
 						LoggingModule.log(LoggingModule.EMERGENCY, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
 								+" crossed Fatal CPU usage" );
-						// TODO Restart Service, and send email to contact personnel 
+						// Restart Service, and send email to contact personnel 
+						for (Contact c : s.getContact()){
+							ContactModule.sendEmail(c.getEmail(), "info@avalon", "EMERGENCY:LOG UPDATE", "Service Group ID " + s.getServiceId() +
+									" has exceeded Fatal CPU Usage." );
+						}
 					}
 				} catch (SigarException e) {
 					System.out.println("The error is" + e.getMessage());
@@ -80,7 +98,7 @@ public class HealthCheckThread implements Runnable {
 						requestQueue.add(new ServerRequest(s.getServiceId(),hl, System.currentTimeMillis()));
 					}
 				}
-				Thread.sleep(500);
+				Thread.sleep(s.getHeartbeatFrequency());
 				
 				// Check for HTTP responses from the Hashtable.
 				int failcount = 0;
