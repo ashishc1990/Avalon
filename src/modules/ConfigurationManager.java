@@ -19,7 +19,7 @@ import beans.Contact;
 import beans.HostLocation;
 import beans.ServiceGroup;
 
-public class ConfigurationModule {
+public class ConfigurationManager {
 
 	public static List<ServiceGroup> ReadFromConfigurationFile(String filename){
 
@@ -77,6 +77,7 @@ public class ConfigurationModule {
 	private static ServiceGroup getServiceGroup(Element e) {
 		ServiceGroup s = new ServiceGroup();
 
+		s.setProcessId(getTextValue(e, "ProcessId"));
 		s.setServiceGroupName(getTextValue(e, "ServiceName"));
 		s.setProtocol(getTextValue(e, "protocol"));
 		s.setHeartbeat(getIntValue(e, "heartbeat"));

@@ -4,15 +4,16 @@ import java.util.List;
 
 public class ServiceGroup {
 	
+	private String processId;
 	private int serviceId;
 	private String serviceGroupName;
 	private String protocol;
 	
-	private int cpuUsageThreshold;
-	private int cpuUsageFatal;
+	private long cpuUsageThreshold;
+	private long cpuUsageFatal;
 	
-	private int memUsageThreshold;
-	private int memUsageFatal;
+	private long memUsageThreshold;
+	private long memUsageFatal;
 	
 	private int heartbeat;
 	private int heartbeatFrequency;
@@ -28,6 +29,13 @@ public class ServiceGroup {
 	private List<HostLocation> hostLocations;
 	private List<ActionStep> actionSteps;
 	private List<Contact> contact;
+
+	public String getProcessId() {
+		return processId;
+	}
+	public void setProcessId(String processId) {
+		this.processId = processId;
+	}
 	public int getServiceId() {
 		return serviceId;
 	}
@@ -46,25 +54,25 @@ public class ServiceGroup {
 	public void setProtocol(String protocol) {
 		this.protocol = protocol;
 	}
-	public int getCpuUsageThreshold() {
+	public long getCpuUsageThreshold() {
 		return cpuUsageThreshold;
 	}
 	public void setCpuUsageThreshold(int cpuUsageThreshold) {
 		this.cpuUsageThreshold = cpuUsageThreshold;
 	}
-	public int getCpuUsageFatal() {
+	public long getCpuUsageFatal() {
 		return cpuUsageFatal;
 	}
 	public void setCpuUsageFatal(int cpuUsageFatal) {
 		this.cpuUsageFatal = cpuUsageFatal;
 	}
-	public int getMemUsageThreshold() {
+	public long getMemUsageThreshold() {
 		return memUsageThreshold;
 	}
 	public void setMemUsageThreshold(int memUsageThreshold) {
 		this.memUsageThreshold = memUsageThreshold;
 	}
-	public int getMemUsageFatal() {
+	public long getMemUsageFatal() {
 		return memUsageFatal;
 	}
 	public void setMemUsageFatal(int memUsageFatal) {

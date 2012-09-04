@@ -4,8 +4,15 @@ public class ServerResponse {
 
 	private long timeOfRequest;
 	private long timeOfResponse;
-	private String status;
+	private int status;
 	
+	public ServerResponse(long timeOfRequest, long timeOfResponse, int status) {
+		super();
+		this.timeOfRequest = timeOfRequest;
+		this.timeOfResponse = timeOfResponse;
+		this.status = status;
+	}
+
 	public long getTimeOfRequest() {
 		return timeOfRequest;
 	}
@@ -18,10 +25,10 @@ public class ServerResponse {
 	public void setTimeOfResponse(long timeOfResponse) {
 		this.timeOfResponse = timeOfResponse;
 	}
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	

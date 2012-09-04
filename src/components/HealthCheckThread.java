@@ -4,6 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
 
+import modules.Logging;
+
+import org.hyperic.sigar.Sigar;
+import org.hyperic.sigar.SigarException;
+
 import beans.ActionStep;
 import beans.HostLocation;
 import beans.ServerRequest;
@@ -24,11 +29,44 @@ public class HealthCheckThread implements Runnable {
 	
 	@Override
 	public void run() {
+		Sigar systemInfo = new Sigar();
 		try{
 			while(true){
 				// Perform CPU and Memory checks 
 				// INFO These checks only work if Service is hosted locally.
-				
+				try {
+					if (systemInfo.getProcMem(s.getProcessId()).getSize() > s.getMemUsageThreshold()){
+						// Log entry as WARNING and NOTICE
+						Logging.log(Logging.WARNING, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+								+" crossed Threshold Memory usage" );
+						Logging.log(Logging.NOTICE, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+								+" crossed Threshold Memory usage" );
+					}
+					if (systemInfo.getProcMem(s.getProcessId()).getSize() > s.getMemUsageFatal()){
+						// Log entry as CRITICAL and EMERGENCY
+						Logging.log(Logging.CRITICAL, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+								+" crossed Fatal Memory usage" );
+						Logging.log(Logging.EMERGENCY, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+								+" crossed Fatal Memory usage" );
+					}
+					
+					if (systemInfo.getProcCpu(s.getProcessId()).getPercent() > s.getCpuUsageThreshold()){
+						// Log entry as WARNING and NOTICE
+						Logging.log(Logging.WARNING, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+								+" crossed Threshold CPU usage" );
+						Logging.log(Logging.NOTICE, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+								+" crossed Threshold CPU usage" );
+					}
+					if (systemInfo.getProcCpu(s.getProcessId()).getPercent() > s.getCpuUsageFatal()){
+						// Log entry as CRITICAL and EMERGENCY
+						Logging.log(Logging.CRITICAL, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+								+" crossed Fatal CPU usage" );
+						Logging.log(Logging.EMERGENCY, "Service Group " + s.getServiceGroupName() + ":" + s.getServiceId() + ":" + s.getProcessId()
+								+" crossed Fatal CPU usage" );
+					}
+				} catch (SigarException e) {
+					System.out.println("The error is" + e.getMessage());
+				}
 				
 				// For each host location, perform Heartbeat checks
 				// write HTTP Request to Queue.
